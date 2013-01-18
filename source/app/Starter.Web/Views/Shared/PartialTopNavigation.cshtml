@@ -1,0 +1,41 @@
+﻿
+<div class="navbar ">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#"> <span class="hidden-phone">STARTER</span></a>
+								
+            <!-- start: Header Menu -->
+            <div class="nav-no-collapse header-nav">
+                <ul class="nav pull-right">
+                    @if (Html.IsAuthenticated())
+                    {
+                        <!-- start: User Dropdown -->
+                        <li class="dropdown">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                
+                                <i class="icon-user icon-white"></i>
+                                <span class="no-text-shadow">@Html.UserName()</span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/logout"><i class="fa-icon-signout"></i> Logout</a></li>
+                            </ul>
+                        </li>
+                        <!-- end: User Dropdown -->
+                    }
+                    else
+                    {
+                        <li><a href="/login">Login</a></li>
+                    }
+                </ul>
+            </div>
+            <!-- end: Header Menu -->
+				
+        </div>
+    </div>
+</div>

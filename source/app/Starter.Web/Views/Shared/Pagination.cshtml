@@ -1,0 +1,11 @@
+﻿<div class="pagination">
+    <ul>
+        <li><a data-bind="click: goToPrevPage" href="#">Prev</a></li>
+    </ul>
+    <ul data-bind="foreach: filter.pages">
+        <li data-bind="css: {active: Number() == $root.filter.CurrentPage()}"><a data-bind="text: Number, click: $root.goToPage" href="#"></a></li>
+    </ul>
+    <ul>
+        <li><a data-bind="click: goToNextPage" href="#">Next</a></li>
+    </ul>
+</div>

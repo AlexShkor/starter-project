@@ -1,0 +1,39 @@
+﻿@model DQF.Web.Models.User.UserViewModel
+
+
+<script>
+    $(function () {
+        ko.applyBindings(new UserViewModel(@Html.JsonModel(Model)));
+    });
+</script>
+<form method="POST" data-bind="submit: save">
+    <fieldset>
+        @Html.Errors()
+        <legend>Edit User
+        </legend>
+        @KO.SpanRow("Email")
+        @KO.EditRow("UserName", "User Name")
+        @KO.EditRow("PhoneNumber", "Phone Number")
+        <div class="control-group">
+            <label class="control-label">Additional Emails</label>
+            <div class="controls">
+                <ul class="nav nav-tabs nav-stacked" data-bind="foreach: model.AdditionalEmails">
+                    <li>
+                        <div class="input-append"> 
+                        <input type="email" data-bind="value: Email" />
+                        <span class="add-on">
+                            <button class="btn btn-mini btn-danger" data-bind="click: $root.removeEmail"><i class="icon-minus icon-white"></i></button>
+                            <button class="btn btn-mini btn-success" data-bind="click: $root.addEmail"><i class="icon-plus icon-white"></i></button>
+                        </span>
+                            </div>
+                    </li>
+                </ul>
+                <button class="btn btn-success" data-bind="click: $root.addEmail, visible: $root.model.AdditionalEmails().length == 0"><i class="icon-plus icon-white"></i>Add</button>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save User</button>
+            <a href="@Model.ReferrerUrl" class="btn">Cancel</a>
+        </div>
+    </fieldset>
+</form>

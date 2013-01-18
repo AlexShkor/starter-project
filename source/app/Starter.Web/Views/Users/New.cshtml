@@ -1,0 +1,23 @@
+﻿@model DQF.Web.Models.User.AddUserViewModel
+
+<script>
+    $(function () {
+        ko.applyBindings(new GeneralViewModel(@Html.JsonModel(Model)));
+    });
+</script>
+<form method="POST" data-bind="submit: save">
+    <fieldset>
+        @Html.Errors()
+        <legend>New User For @Model.UserOwnerName
+        </legend>
+        @KO.EditRow("Email",inputType: "email")
+        @KO.PasswordRow("Password")
+        @KO.PasswordRow("ConfirmPassword", "Confirm Password")
+        @KO.EditRow("UserName", "User Name")
+        @KO.EditRow("PhoneNumber", "Phone Number")
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save User</button>
+            <a href="@Model.ReferrerUrl" class="btn">Cancel</a>
+        </div>
+    </fieldset>
+</form>

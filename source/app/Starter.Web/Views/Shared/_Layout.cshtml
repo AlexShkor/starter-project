@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "~/Views/Shared/_BasePage.cshtml";
+}
+<!-- start: Header -->
+@Html.Partial("PartialTopNavigation")
+    
+<noscript>
+    <div class="alert alert-block span10">
+        <h4 class="alert-heading">Warning!</h4>
+        <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+    </div>
+</noscript>
+<!-- end: Header -->
+    
+@Html.Partial("ModalConfirm")
+<div class="container-fluid" id="layout">
+    <!-- start: Middle Data -->
+    <div class="row-fluid">
+        @Html.Partial("PartialSidebarNavigation")
+            
+        <div id="content" class="span10">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- end: Middle Data -->
+
+    <!-- start: Footer -->
+    <div class="clearfix"></div>
+    <footer>
+        <p>
+            <span style="text-align:left;float:left">&copy; <a href="#" target="_blank">EDPM</a> 2012</span>
+            <span style="text-align:right;float:right"></span>
+        </p>
+    </footer>
+    <!-- end: Footer -->
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.date').datepicker({ autoclose: true });
+    });
+</script>
+

@@ -1,0 +1,11 @@
+﻿@model string
+<p class="alert alert-success" data-bind="visible: @(Model)SuccessMessage" style="display: none;">
+    <button type="button" class="close" data-bind="clear: @(Model)SuccessMessage">×</button>
+    <span data-bind="text: @(Model)SuccessMessage" ></span>
+</p>
+<div class="alert alert-error" data-bind="visible: @(Model)Errors().length > 0" style="display: none;">
+    <button type="button" class="close" data-bind="clear: @(Model)Errors">×</button>
+    <ul data-bind="foreach: @(Model)Errors">
+        <li data-bind="text: ErrorMessage"></li>
+    </ul>
+</div>

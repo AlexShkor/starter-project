@@ -1,0 +1,42 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $("a.confirm").live("click", function() {
+            var header = $(this).data("modal-header") || "Confirm Deletion";
+            var body = $(this).data("modal-body") || "Are your sure?";
+            var okBtnText = $(this).data("modal-ok-btn-text") || "Ok";
+            $("#formConfirm").attr("action", $(this).attr("href"));
+            $("#modalHeader").html(header);
+            $("#modalBody").html(body);
+            $("#submitModal").html(okBtnText);
+            $("#modalConfirm").modal("show");
+            return false;
+        });
+
+        $("#submitModal").click(function () {
+            var url = $("#formConfirm")[0].action;
+            $.ajax(url, {
+                type: "POST",
+                complete: function() {
+                    $('.modal').modal('hide');
+                    location.reload();
+                }
+            });
+           return false;
+        });
+    });
+</script>
+<div id="modalConfirm" class="modal hide fade">
+    <form id="formConfirm" method="POST">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 id="modalHeader"></h3>
+        </div>
+        <div class="modal-body">
+            <p id="modalBody"></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+            <button id="submitModal" type="submit" class="btn btn-primary">Ok</button>
+        </div>
+    </form>
+</div>

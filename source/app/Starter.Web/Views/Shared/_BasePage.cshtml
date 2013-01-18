@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- CSS -->
+    @Styles.Render("~/bundles/css/bootstrap")
+    @Styles.Render("~/bundles/css/style")
+    @Styles.Render("~/bundles/css/custom")
+    
+    <!-- Scripts -->
+    @Scripts.Render("~/bundles/scripts/jquery")
+    @Scripts.Render("~/bundles/scripts/knockout")
+    @Scripts.Render("~/bundles/scripts/bootstrap")
+    @Scripts.Render("~/bundles/scripts/perfectum")
+    @Scripts.Render("~/bundles/scripts/other")
+    @Scripts.Render("~/bundles/scripts/custom")
+    
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>
+

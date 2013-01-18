@@ -1,0 +1,41 @@
+﻿@using DQF.Domain.Aggregates.User
+@using DocumentFormat.OpenXml.Drawing.Charts
+@model System.Collections.Generic.List<DQF.Web.Models.User.UserListItem>
+
+@if (Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>User Name</th>
+                    <th>Role</th>
+                    <th>Creation Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Email</td>
+                        <td>@item.UserName</td>
+                        <td>@item.RoleString</td>
+                        <td>@item.CreationDate</td>
+                        <td>
+                            <a class="btn" href="@Url.Action("Edit",new{id = item.Id})" title="Edit"><i class="icon-edit"></i></a>
+                            
+                            @if (item.CanBeDeleted)
+                            {
+                                <a class="btn btn-danger confirm" href="@Url.Action("Delete",new{id = item.Id})" title="Delete"><i class="icon-trash icon-white"></i></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="well">No Document Types.</div>
+    }
