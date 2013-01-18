@@ -42,31 +42,7 @@ namespace DQF.Web
                             .Include("~/Content/js/jquery.fileupload.js")
                             .Include("~/Content/js/jquery.iframe-transport.js")
                             .Include("~/Content/js/jquery.ui.widget.js")
-                            //.Include("~/Content/js/tagit.js")
                             .Include("~/Content/js/sammy-0.7.1.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/scripts/perfectum")
-                            .Include("~/Content/js/excanvas.js")
-                            //.Include("~/Content/js/fullcalendar.js")
-                            .Include("~/Content/js/jquery.chosen.min.js")
-                            //.Include("~/Content/js/jquery.cleditor.min.js")
-                            //.Include("~/Content/js/jquery.cookie.js")
-                            //.Include("~/Content/js/jquery.dataTables.min.js")
-                            //.Include("~/Content/js/jquery.elfinder.min.js")
-                            .Include("~/Content/js/jquery.flot.min.js")
-                            .Include("~/Content/js/jquery.flot.pie.min.js")
-                            //.Include("~/Content/js/jquery.flot.resize.min.js")
-                            //.Include("~/Content/js/jquery.flot.stack.js")
-                            //.Include("~/Content/js/jquery.gritter.min.js")
-                            //.Include("~/Content/js/jquery.imagesloaded.js")
-                            //.Include("~/Content/js/jquery.iphone.toggle.js")
-                            //.Include("~/Content/js/jquery.knob.js")
-                            //.Include("~/Content/js/jquery.masonry.min.js")
-                            //.Include("~/Content/js/jquery.noty.js")
-                            //.Include("~/Content/js/jquery.raty.min.js")
-                            .Include("~/Content/js/jquery.sparkline.min.js")
-                            .Include("~/Content/js/jquery.uniform.js")
-                            .Include("~/Content/js/perfectum.dashboard.init.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/custom")
                             .IncludeDirectory("~/Content/js/custom", "*.js"));
@@ -90,7 +66,6 @@ namespace DQF.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/style")
                             .Include("~/Content/css/style.css")
-                          //  .Include("~/Content/css/tagit-simple-blue.css")
                             .Include("~/Content/css/style-responsive.css"));
 
             bundles.Add(new StyleBundle("~/bundles/css/all")
