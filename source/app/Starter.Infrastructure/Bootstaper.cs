@@ -105,10 +105,11 @@ namespace DQF
 
         private void ConfigureTransport(IContainer container)
         {
+            var serviceLocator = new StructureMapServiceLocator(container);
             var dispatcher = Dispatcher.Create(d => d
-                .AddHandlers(typeof(UserView).Assembly, type => container.Configure(c => c.For(typeof(IMessageHandler)).Singleton().Use(type)))
+                .AddHandlers(typeof(UserView).Assembly, type => container.Configure(c => c.For(typeof(IMessageHandler)).HybridHttpOrThreadLocalScoped().Use(type)))
                 .AddInterceptor(typeof(LoggingInterceptor))
-                .SetServiceLocator(new StructureMapServiceLocator(container)));
+                .SetServiceLocator(serviceLocator));
 
             container.Configure(config =>
             {
@@ -117,8 +118,10 @@ namespace DQF
                 //    scan.AssemblyContainingType<UserView>();
                 //    scan.AddAllTypesOf<IMyMessageHandler>();
                 //});
+                config.For<IHandlersAgregator>().HybridHttpOrThreadLocalScoped().Use<HandlersAgregator>();
                 config.For<ICommandBus>().Use<CommandBus>();
                 config.For<IDispatcher>().Singleton().Use(dispatcher);
+                config.For<IServiceLocator>().Singleton().Use(serviceLocator);
             });
         }
     }

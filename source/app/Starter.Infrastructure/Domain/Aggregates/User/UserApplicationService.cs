@@ -12,7 +12,7 @@ namespace DQF.Domain.Aggregates.User
         private readonly IRepository<UserAggregate> _repository;
         private readonly CryptographicHelper _crypto;
 
-        public UserApplicationService(IRepository<UserAggregate> repository,CryptographicHelper crypto)
+        public UserApplicationService(IRepository<UserAggregate> repository, CryptographicHelper crypto)
         {
             _repository = repository;
             _crypto = crypto;

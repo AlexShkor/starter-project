@@ -74,16 +74,9 @@ namespace DQF.Platform.Dispatching
         {
             try
             {
-                if (!_initialized)
-                {
-                    var allinstances = _serviceLocator.GetAllInstances<IMessageHandler>().ToList();
-                    _initialized = true;
-                }
-
                 CurrentMessage = message;
-
-                var handlers = MessageHandler.GetHandlersFor(message.GetType());
-
+                var handlersBag = _serviceLocator.GetInstance<IHandlersAgregator>();
+                var handlers = handlersBag.GetHandlersFor(message.GetType()).ToList();
                 foreach (var handler in handlers)
                 {
                     try

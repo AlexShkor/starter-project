@@ -1,6 +1,10 @@
-namespace DQF.Platform.Dispatching
+using System.Collections;
+using System.Collections.Generic;
+
+namespace DQF.Platform.Dispatching.Interfaces
 {
-    internal interface IMessageHandler
+    public interface IMessageHandler
     {
+        IEnumerable<HandlerActionInfo> GetHandlerActions();
     }
 }
