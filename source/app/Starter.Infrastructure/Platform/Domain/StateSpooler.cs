@@ -47,4 +47,43 @@ namespace DQF.Platform.Domain
             methodInfo.Invoke(state, new[] { message });
         }        
     }
+
+
+    public struct MethodDescriptor
+    {
+        public readonly Type HandlerType;
+        public readonly Type MessageType;
+
+        public MethodDescriptor(Type handlerType, Type messageType)
+            : this()
+        {
+            HandlerType = handlerType;
+            MessageType = messageType;
+        }
+
+        public bool Equals(MethodDescriptor descriptor)
+        {
+            return descriptor.HandlerType == HandlerType && descriptor.MessageType == MessageType;
+        }
+
+        public override bool Equals(object descriptor)
+        {
+            if (ReferenceEquals(null, descriptor))
+                return false;
+
+            if (descriptor.GetType() != typeof(MethodDescriptor))
+                return false;
+
+            return Equals((MethodDescriptor)descriptor);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((HandlerType != null ? HandlerType.GetHashCode() : 0) * 397)
+                     ^ (MessageType != null ? MessageType.GetHashCode() : 0);
+            }
+        }
+    }
 }

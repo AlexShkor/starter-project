@@ -106,12 +106,17 @@ namespace DQF
         private void ConfigureTransport(IContainer container)
         {
             var dispatcher = Dispatcher.Create(d => d
-                .AddHandlers(typeof(UserView).Assembly)
+                .AddHandlers(typeof(UserView).Assembly, type => container.Configure(c => c.For(typeof(IMessageHandler)).Singleton().Use(type)))
                 .AddInterceptor(typeof(LoggingInterceptor))
                 .SetServiceLocator(new StructureMapServiceLocator(container)));
 
             container.Configure(config =>
             {
+                //config.Scan(scan =>
+                //{
+                //    scan.AssemblyContainingType<UserView>();
+                //    scan.AddAllTypesOf<IMyMessageHandler>();
+                //});
                 config.For<ICommandBus>().Use<CommandBus>();
                 config.For<IDispatcher>().Singleton().Use(dispatcher);
             });

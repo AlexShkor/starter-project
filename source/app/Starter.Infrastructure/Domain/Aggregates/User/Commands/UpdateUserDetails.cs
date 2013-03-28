@@ -3,7 +3,7 @@ using DQF.Platform.Domain.Messages;
 
 namespace DQF.Domain.Aggregates.User.Commands
 {
-    public class UpdateUserDetails: Command
+    public class UpdateUserDetails : UserCommand
     {
         public string UserName { get; set; }
         public string PhoneNumber { get; set; }

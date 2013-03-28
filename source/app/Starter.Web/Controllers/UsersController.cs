@@ -75,7 +75,7 @@ namespace DQF.Web.Controllers
         {
             var cmd = new DeleteUser
             {
-                Id = id,
+                UserId = id,
                 DeletedByUserId = User.UserId
             };
             _bus.Send(cmd);

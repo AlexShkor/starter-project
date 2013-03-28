@@ -9,7 +9,7 @@ using Uniform;
 
 namespace DQF.Handlers.ViewHandlers
 {
-    public class UserViewHandler : IMessageHandler
+    public class UserViewHandler : MessageHandler
     {
         private readonly ViewDatabase _db;
         private readonly IDocumentCollection<UserView> _users;
@@ -18,11 +18,8 @@ namespace DQF.Handlers.ViewHandlers
         {
             _db = db;
             _users = db.Users;
-        }
 
-        public void Handle(UserCreated e)
-        {
-            _users.Save(new UserView
+            Handle((UserCreated e)=> _users.Save(new UserView
             {
                 Id = e.Id,
                 UserName = e.UserName,
@@ -32,31 +29,19 @@ namespace DQF.Handlers.ViewHandlers
                 CreationDate = e.CreationDate,
                 Role = e.Role,
                 PhoneNumber = e.PhoneNumber
-            });
-        }
-
-        public void Handle(PasswordChanged e)
-        {
-            _users.Update(e.Id, u =>
+            }));
+            Handle((PasswordChanged e) => _users.Update(e.Id, u =>
             {
                 u.PasswordHash = e.PasswordHash;
                 u.PasswordSalt = e.PasswordSalt;
-            });
-        }
-
-        public void Handle(UserDetailsUpdated e)
-        {
-            _users.Update(e.Id, u =>
+            }));
+            Handle((UserDetailsUpdated e) => _users.Update(e.Id, u =>
             {
                 u.UserName = e.UserName;
                 u.PhoneNumber = e.PhoneNumber;
                 u.AdditionalEmails = e.AdditionalEmails;
-            });
-        }
-
-        public void Handle(UserDeleted e)
-        {
-            _users.Delete(e.Id);
+            }));
+            Handle((UserDeleted e) => _users.Delete(e.Id));
         }
     }
 }

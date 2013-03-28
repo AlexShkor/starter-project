@@ -16,7 +16,7 @@ namespace DQF.Domain.Aggregates.Site
             }
             Apply(new SiteCreated
             {
-                Id = c.Id,
+                Id = c.SiteId,
             });
         }
 

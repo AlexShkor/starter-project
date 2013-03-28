@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Reflection;
 using Microsoft.Practices.ServiceLocation;
 using DQF.Platform.Dispatching.Exceptions;
@@ -33,7 +34,10 @@ namespace DQF.Platform.Dispatching
         /// Current message that is dispatched 
         /// </summary>
         [ThreadStatic]
-        public static Object CurrentMessage;
+        public static Object CurrentMessage;      
+
+        [ThreadStatic]
+        private static bool _initialized;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
@@ -49,9 +53,6 @@ namespace DQF.Platform.Dispatching
             _serviceLocator = configuration.ServiceLocator;
             _registry = configuration.DispatcherHandlerRegistry;
             _maxRetries = configuration.NumberOfRetries;
-
-            // order handlers 
-            _registry.InsureOrderOfHandlers();
         }
 
         /// <summary>
@@ -73,14 +74,18 @@ namespace DQF.Platform.Dispatching
         {
             try
             {
+                if (!_initialized)
+                {
+                    var allinstances = _serviceLocator.GetAllInstances<IMessageHandler>().ToList();
+                    _initialized = true;
+                }
+
                 CurrentMessage = message;
 
-                var subscriptions = _registry.GetSubscriptions(message.GetType());
+                var handlers = MessageHandler.GetHandlersFor(message.GetType());
 
-                foreach (var subscription in subscriptions)
+                foreach (var handler in handlers)
                 {
-                    var handler = _serviceLocator.GetInstance(subscription.HandlerType);
-
                     try
                     {
                         ExecuteHandler(handler, message, exceptionObserver);
@@ -97,7 +102,7 @@ namespace DQF.Platform.Dispatching
             }
         }
 
-        private void ExecuteHandler(Object handler, Object message, Action<Exception> exceptionObserver = null)
+        private void ExecuteHandler(Action<Object> handler, Object message, Action<Exception> exceptionObserver = null)
         {
             var attempt = 0;
             while (attempt < _maxRetries)
@@ -105,7 +110,6 @@ namespace DQF.Platform.Dispatching
                 try
                 {
                     var context = new DispatcherInvocationContext(this, handler, message);
-
                     if (_registry.Interceptors.Count > 0)
                     {
                         // Call interceptors in backward order
@@ -116,12 +120,8 @@ namespace DQF.Platform.Dispatching
                             context = new DispatcherInterceptorContext(interceptor, context);
                         }
                     }
-
                     context.Invoke();
-
-                    // message handled correctly - so that should be 
-                    // the final attempt
-                    attempt = _maxRetries;
+                    return;
                 }
                 catch (Exception exception)
                 {
@@ -140,65 +140,9 @@ namespace DQF.Platform.Dispatching
             }            
         }
 
-        public void InvokeDynamic(Object handler, Object message)
+        public void InvokeHandler(Action<object> handler, object message)
         {
-            dynamic dynamicHandler = handler;
-            dynamic dynamicMessage = message;
-
-            dynamicHandler.Handle(dynamicMessage);
-        }
-
-        private readonly ConcurrentDictionary<MethodDescriptor, MethodInfo> _methodCache = new ConcurrentDictionary<MethodDescriptor, MethodInfo>();
-
-        public void InvokeByReflection(Object handler, Object message)
-        {
-            var methodDescriptor = new MethodDescriptor(handler.GetType(), message.GetType());
-            MethodInfo methodInfo = null;
-            if (!_methodCache.TryGetValue(methodDescriptor, out methodInfo))
-                _methodCache[methodDescriptor] = methodInfo = handler.GetType().GetMethod("Handle", new[] { message.GetType() });
-
-            if (methodInfo == null)
-                return;
-
-            methodInfo.Invoke(handler, new[] { message });
+            handler.Invoke(message);
         }
     }
-
-    public struct MethodDescriptor
-    {
-        public readonly Type HandlerType;
-        public readonly Type MessageType;
-
-        public MethodDescriptor(Type handlerType, Type messageType) : this()
-        {
-            HandlerType = handlerType;
-            MessageType = messageType;
-        }
-
-        public bool Equals(MethodDescriptor descriptor)
-        {
-            return descriptor.HandlerType == HandlerType && descriptor.MessageType == MessageType;
-        }
-
-        public override bool Equals(object descriptor)
-        {
-            if (ReferenceEquals(null, descriptor))
-                return false;
-
-            if (descriptor.GetType() != typeof(MethodDescriptor))
-                return false;
-
-            return Equals((MethodDescriptor) descriptor);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((HandlerType != null ? HandlerType.GetHashCode() : 0) * 397) 
-                     ^ (MessageType != null ? MessageType.GetHashCode() : 0);
-            }
-        }
-    }
-
 }

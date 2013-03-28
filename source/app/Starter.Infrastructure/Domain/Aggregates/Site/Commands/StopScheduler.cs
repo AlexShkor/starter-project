@@ -2,7 +2,7 @@
 
 namespace DQF.Domain.Aggregates.Site.Commands
 {
-    public class StopScheduler:Command
+    public class StopScheduler : SiteCommand
     {
         public bool Restart { get; set; }
     }

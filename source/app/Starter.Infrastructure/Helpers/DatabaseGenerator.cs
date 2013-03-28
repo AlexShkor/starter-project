@@ -27,11 +27,11 @@ namespace DQF.Helpers
 
         private void CreateSite()
         {
-            var createSite = new CreateSite {Id = SiteSettings.SiteId };
+            var createSite = new CreateSite {SiteId = SiteSettings.SiteId };
             _bus.Send(createSite);
             _bus.Send(new SetSiteSettings
             {
-                Id = createSite.Id,
+                SiteId = createSite.SiteId,
                 SmtpSettings = new SmtpSettingsData
                 {
                     SmtpServer = "smtp.sendgrid.net",

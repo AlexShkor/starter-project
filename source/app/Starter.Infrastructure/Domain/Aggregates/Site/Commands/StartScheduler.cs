@@ -2,7 +2,7 @@
 
 namespace DQF.Domain.Aggregates.Site.Commands
 {
-    public class StartScheduler:Command
+    public class StartScheduler : SiteCommand
     {
          
     }

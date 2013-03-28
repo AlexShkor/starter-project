@@ -47,7 +47,7 @@ namespace DQF.Web.Models.User
         {
             return new UpdateUserDetails
             {
-                Id = UserId,
+                UserId = UserId,
                 UserName = UserName,
                 PhoneNumber = PhoneNumber,
                 AdditionalEmails = AdditionalEmails.Select(x => x.Email).ToList()

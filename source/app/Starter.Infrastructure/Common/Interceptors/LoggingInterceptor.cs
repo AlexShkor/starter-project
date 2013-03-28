@@ -1,8 +1,6 @@
 ﻿using System;
-using Microsoft.Practices.Unity;
 using DQF.Platform.Dispatching;
 using DQF.Platform.Dispatching.Interfaces;
-using DQF.Platform.Domain;
 using DQF.Platform.Domain.Interfaces;
 using DQF.Platform.Logging;
 

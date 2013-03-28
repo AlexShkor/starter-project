@@ -18,9 +18,9 @@ namespace DQF.Platform.Dispatching
             return configuration;
         }
 
-        public static DispatcherConfiguration AddHandlers(this DispatcherConfiguration configuration, Assembly assembly, String[] namespaces)
+        public static DispatcherConfiguration AddHandlers(this DispatcherConfiguration configuration, Assembly assembly, String[] namespaces, Action<Type> singletoneRegistrator)
         {
-            configuration.DispatcherHandlerRegistry.Register(assembly, namespaces);
+            configuration.DispatcherHandlerRegistry.Register(assembly, namespaces, singletoneRegistrator);
             return configuration;
         }
 
@@ -30,9 +30,9 @@ namespace DQF.Platform.Dispatching
             return configuration;
         }
 
-        public static DispatcherConfiguration AddHandlers(this DispatcherConfiguration configuration, Assembly assembly)
+        public static DispatcherConfiguration AddHandlers(this DispatcherConfiguration configuration, Assembly assembly,Action<Type> singletoneRegistrator)
         {
-            return AddHandlers(configuration, assembly, new string[] { });
+            return AddHandlers(configuration, assembly, new string[] { }, singletoneRegistrator);
         }
     }
 }

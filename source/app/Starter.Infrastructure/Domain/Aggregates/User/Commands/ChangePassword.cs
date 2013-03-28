@@ -3,7 +3,7 @@ using DQF.Platform.Domain.Messages;
 
 namespace DQF.Domain.Aggregates.User.Commands
 {
-    public class ChangePassword: Command
+    public class ChangePassword: UserCommand
     {
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }

@@ -56,7 +56,7 @@ namespace DQF.Domain.Aggregates.User
         {
             Apply(new UserDetailsUpdated
             {
-                Id = c.Id,
+                Id = c.UserId,
                 UserName = c.UserName,
                 PhoneNumber = c.PhoneNumber,
                 AdditionalEmails = c.AdditionalEmails

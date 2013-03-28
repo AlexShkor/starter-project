@@ -6,7 +6,7 @@ namespace DQF.Platform.Dispatching
     public class DispatcherInvocationContext
     {
         private readonly Dispatching.Dispatcher _dispatcher;
-        private readonly object _handler;
+        private readonly Action<Object> _handler;
         private readonly object _message;
 
         public object Message
@@ -29,7 +29,7 @@ namespace DQF.Platform.Dispatching
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        public DispatcherInvocationContext(Dispatching.Dispatcher dispatcher, Object handler, Object message)
+        public DispatcherInvocationContext(Dispatcher dispatcher, Action<Object> handler, Object message)
         {
             _dispatcher = dispatcher;
             _handler = handler;
@@ -38,7 +38,7 @@ namespace DQF.Platform.Dispatching
 
         public virtual void Invoke()
         {
-            _dispatcher.InvokeByReflection(_handler, _message);
+            _dispatcher.InvokeHandler(_handler, _message);
         }
     }
 

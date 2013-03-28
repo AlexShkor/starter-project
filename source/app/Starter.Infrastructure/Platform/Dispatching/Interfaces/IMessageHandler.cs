@@ -1,13 +1,6 @@
-﻿namespace DQF.Platform.Dispatching.Interfaces
+namespace DQF.Platform.Dispatching
 {
-    public interface IMessageHandler<TMessage>
+    internal interface IMessageHandler
     {
-        void Handle(TMessage message);
     }
-
-    public interface IMessageHandler
-    {
-        // Marker interface
-    }
-
 }
