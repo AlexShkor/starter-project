@@ -76,7 +76,7 @@ namespace DQF.Platform.Dispatching
             {
                 CurrentMessage = message;
                 var handlersBag = _serviceLocator.GetInstance<IHandlersAgregator>();
-                var handlers = handlersBag.GetHandlersFor(message.GetType()).ToList();
+                var handlers = handlersBag.GetHandlersFor(message.GetType());
                 foreach (var handler in handlers)
                 {
                     try
