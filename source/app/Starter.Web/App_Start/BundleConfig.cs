@@ -39,10 +39,12 @@ namespace DQF.Web
                             .Include("~/Content/js/perpetuum.knockout.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/other")
-                            .Include("~/Content/js/jquery.fileupload.js")
-                            .Include("~/Content/js/jquery.iframe-transport.js")
-                            .Include("~/Content/js/jquery.ui.widget.js")
-                            .Include("~/Content/js/sammy-0.7.1.min.js"));
+                            //.Include("~/Content/js/jquery.fileupload.js")
+                            //.Include("~/Content/js/jquery.iframe-transport.js")
+                            //.Include("~/Content/js/jquery.ui.widget.js")
+                            //.Include("~/Content/js/sammy-0.7.1.min.js")
+                            
+                            );
 
             bundles.Add(new ScriptBundle("~/bundles/scripts/custom")
                             .IncludeDirectory("~/Content/js/custom", "*.js"));

@@ -4,7 +4,7 @@ namespace DQF
 {
     public class SiteSettings
     {
-        public const string SiteId = "DQF-Site-2";
+        public const string SiteId = "Starter-Site";
 
         [SettingsProperty("mongo.events_connection_string")]
         public string MongoEventsConnectionString { get; set; }

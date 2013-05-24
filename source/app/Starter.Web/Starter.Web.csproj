@@ -160,9 +160,12 @@
   <ItemGroup>
     <Content Include="Content\css\bootstrap-datepicker.css" />
     <Content Include="Content\css\bootstrap-responsive.css" />
+    <Content Include="Content\css\bootstrap-responsive.min.css" />
     <Content Include="Content\css\bootstrap-timepicker.css" />
     <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\custom\site.css" />
+    <Content Include="Content\css\flat-ui.css" />
     <Content Include="Content\img\glyphicons-halflings-red.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
@@ -182,8 +185,6 @@
     <Content Include="Content\js\jquery-1.8.3.js" />
     <Content Include="Content\js\jquery-1.8.3.min.js" />
     <Content Include="Content\js\jquery.cookie.js" />
-    <Content Include="Content\js\jquery.fileupload.js" />
-    <Content Include="Content\js\jquery.iframe-transport.js" />
     <Content Include="Content\js\jquery.unobtrusive-ajax.js" />
     <Content Include="Content\js\jquery.unobtrusive-ajax.min.js" />
     <None Include="Content\js\jquery.validate-vsdoc.js" />

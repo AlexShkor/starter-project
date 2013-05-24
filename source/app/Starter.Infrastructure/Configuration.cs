@@ -23,9 +23,9 @@ namespace DQF
         {
             container.RegisterInstance(new SiteSettings()
             {
-                MongoEventsConnectionString = "mongodb://admin(admin):1@localhost:27020/dqf_events",
-                MongoViewConnectionString = "mongodb://admin(admin):1@localhost:27020/dqf_view",
-                MongoLogsConnectionString = "mongodb://admin(admin):1@localhost:27020/dqf_logs"
+                MongoEventsConnectionString = "mongodb://admin(admin):1@localhost:27020/starter_events",
+                MongoViewConnectionString = "mongodb://admin(admin):1@localhost:27020/starter_view",
+                MongoLogsConnectionString = "mongodb://admin(admin):1@localhost:27020/starter_logs"
             });
         }
 

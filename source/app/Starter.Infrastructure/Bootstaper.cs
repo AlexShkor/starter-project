@@ -108,7 +108,9 @@ namespace DQF
         {
             var serviceLocator = new StructureMapServiceLocator(container);
             var dispatcher = Dispatcher.Create(d => d
-                .AddHandlers(typeof(UserView).Assembly, type => container.Configure(c => c.For(typeof(IMessageHandler)).LifecycleIs(new ThreadLocalStorageLifecycle()).Use(type)))
+                .AddHandlers(typeof(UserView).Assembly, 
+                type => container.Configure(c => c.For(typeof(IMessageHandler))
+                    .LifecycleIs(new ThreadLocalStorageLifecycle()).Use(type)))
                 .AddInterceptor(typeof(LoggingInterceptor))
                 .SetServiceLocator(serviceLocator));
 
@@ -119,7 +121,7 @@ namespace DQF
                 //    scan.AssemblyContainingType<UserView>();
                 //    scan.AddAllTypesOf<IMyMessageHandler>();
                 //});
-                config.For<IHandlersAgregator>().LifecycleIs(new ThreadLocalStorageLifecycle()).Use<HandlersAgregator>();
+                config.For<IHandlersAgregator>().Use<HandlersAgregator>();
                 config.For<ICommandBus>().Use<CommandBus>();
                 config.For<IDispatcher>().Singleton().Use(dispatcher);
                 config.For<IServiceLocator>().Singleton().Use(serviceLocator);

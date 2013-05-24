@@ -2,7 +2,6 @@
 using DQF.Domain.Aggregates.User.Commands;
 using DQF.Helpers;
 using DQF.Platform.Dispatching;
-using DQF.Platform.Dispatching.Interfaces;
 using DQF.Platform.Domain.Interfaces;
 
 namespace DQF.Domain.Aggregates.User

@@ -9,6 +9,13 @@ namespace DQF.Platform.Dispatching
 {
     public abstract class MessageHandler : IMessageHandler
     {
+        private int _proirity = 0;
+
+        protected void SetPriority(int priority)
+        {
+            _proirity = priority;
+        }
+
         private readonly ConcurrentDictionary<Type, HandlerActionInfo> _handlers;
 
         protected MessageHandler()
@@ -18,9 +25,9 @@ namespace DQF.Platform.Dispatching
 
         protected void Handle<TMessage>(Action<TMessage> handler)
         {
-            var priorityAttribute = ReflectionUtils.GetSingleAttribute<PriorityAttribute>(this.GetType());
-            var defaultPriority = priorityAttribute == null ? 0 : priorityAttribute.Priority;
-            Handle(handler, defaultPriority);
+           // var priorityAttribute = ReflectionUtils.GetSingleAttribute<PriorityAttribute>(this.GetType());
+           // var defaultPriority = priorityAttribute == null ? 0 : priorityAttribute.Priority;
+            Handle(handler, _proirity);
         }
 
         protected void Handle<TMessage>(Action<TMessage> handler, int priority)
@@ -37,6 +44,16 @@ namespace DQF.Platform.Dispatching
                     handler(message);
                 }
             };
+        }
+
+        public bool HasHandlerFor(Type messageType)
+        {
+            return _handlers.ContainsKey(messageType);
+        }
+
+        public HandlerActionInfo GetHandlerFor(Type messageType)
+        {
+            return _handlers[messageType];
         }
 
         public IEnumerable<HandlerActionInfo> GetHandlerActions()

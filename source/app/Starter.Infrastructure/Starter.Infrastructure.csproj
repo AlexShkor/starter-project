@@ -155,8 +155,8 @@
     <Compile Include="Exceptions\ViewAccessDeniedException.cs" />
     <Compile Include="Handlers\ViewHandlers\SiteViewHandler.cs" />
     <Compile Include="Helpers\SimpleAES.cs" />
-    <Compile Include="Platform\Dispatching\HandlersBag.cs" />
-    <Compile Include="Platform\Dispatching\IHandlersBag.cs" />
+    <Compile Include="Platform\Dispatching\HandlersAgregator.cs" />
+    <Compile Include="Platform\Dispatching\IHandlersAgregator.cs" />
     <Compile Include="Platform\Dispatching\MessageHandler.cs" />
     <Compile Include="Platform\Dispatching\Interfaces\IMessageHandler.cs" />
     <Compile Include="Platform\Extensions\BoolExt.cs" />
